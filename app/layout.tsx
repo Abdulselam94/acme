@@ -1,6 +1,8 @@
 
 import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
+import Navbar from '@/app/ui/navbar';
+import Footer from '@/app/ui/footer';
 import { Metadata } from 'next';
  
 export const metadata: Metadata = {
@@ -17,7 +19,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${inter.className} antialiased`}>
+        <Navbar />
+        <main className="min-h-screen">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
+

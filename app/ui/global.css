@@ -16,3 +16,56 @@ input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+:root {
+  --bg-1: #f8fafc;
+  --muted: #6b7280;
+  --glass-bg: rgba(255,255,255,0.6);
+  --card-bg: #ffffff;
+  --shadow-soft: 0 6px 18px rgba(15,23,42,0.06);
+}
+
+html, body, #__next {
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(180deg, rgba(250,252,255,1) 0%, rgba(245,247,250,1) 100%);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@layer components {
+  .glass-nav {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
+    padding: 1rem;
+  }
+
+  .fade-in {
+    animation: fadeInUp 420ms ease forwards;
+  }
+
+  .hover-lift {
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(15,23,42,0.08);
+  }
+}
+
+/* accessible focus ring helper */
+.focus-ring:focus-visible { outline: 3px solid rgba(59,130,246,0.24); outline-offset: 3px; }
+
