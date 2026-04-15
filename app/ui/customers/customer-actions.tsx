@@ -1,11 +1,12 @@
 'use client';
-
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
+import { TrashIcon, PencilSquareIcon, EyeIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
+import CustomerDetails from './customer-details';
 
-export default function CustomerActions({ id, name, email }: { id: string; name: string; email: string }) {
+export default function CustomerActions({ id, name, email, ...rest }: any) {
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const router = useRouter();
 
   async function handleDelete() {
@@ -48,8 +49,21 @@ export default function CustomerActions({ id, name, email }: { id: string; name:
     }
   }
 
+  function handleInvoice() {
+    router.push(`/dashboard/invoices/create?customerId=${id}`);
+  }
+
   return (
     <div className="flex items-center gap-2 justify-end">
+      <button
+        onClick={() => setOpen(true)}
+        title="View"
+        className="flex items-center gap-2 rounded-md bg-slate-50 px-2 py-1 text-slate-700 hover:bg-slate-100"
+      >
+        <EyeIcon className="h-4 w-4" />
+        <span className="hidden text-sm md:inline">View</span>
+      </button>
+
       <button
         onClick={handleEdit}
         disabled={loading}
@@ -59,6 +73,16 @@ export default function CustomerActions({ id, name, email }: { id: string; name:
         <PencilSquareIcon className="h-4 w-4" />
         <span className="hidden text-sm md:inline">Edit</span>
       </button>
+
+      <button
+        onClick={handleInvoice}
+        title="Invoice"
+        className="flex items-center gap-2 rounded-md bg-emerald-50 px-2 py-1 text-emerald-600 hover:bg-emerald-100"
+      >
+        <DocumentTextIcon className="h-4 w-4" />
+        <span className="hidden text-sm md:inline">Invoice</span>
+      </button>
+
       <button
         onClick={handleDelete}
         disabled={loading}
@@ -68,6 +92,8 @@ export default function CustomerActions({ id, name, email }: { id: string; name:
         <TrashIcon className="h-4 w-4" />
         <span className="hidden text-sm md:inline">Delete</span>
       </button>
+
+      <CustomerDetails customer={{ id, name, email, ...rest }} open={open} onClose={() => setOpen(false)} />
     </div>
   );
 }
