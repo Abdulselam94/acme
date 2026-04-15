@@ -5,6 +5,7 @@ import {
   CustomersTableType,
   FormattedCustomersTable,
 } from '@/app/lib/definitions';
+import CustomerActions from '@/app/ui/customers/customer-actions';
 
 export default async function CustomersTable({
   customers,
@@ -80,6 +81,9 @@ export default async function CustomersTable({
                     <th scope="col" className="px-4 py-5 font-medium">
                       Total Paid
                     </th>
+                    <th scope="col" className="px-4 py-5 font-medium text-right">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
 
@@ -109,6 +113,9 @@ export default async function CustomersTable({
                       </td>
                       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm group-first-of-type:rounded-md group-last-of-type:rounded-md">
                         {customer.total_paid}
+                      </td>
+                      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm text-right">
+                        <CustomerActions id={customer.id} name={customer.name} email={customer.email} />
                       </td>
                     </tr>
                   ))}
